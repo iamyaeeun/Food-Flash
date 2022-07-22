@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+    <TextView
+        android:id="@+id/text_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/image_view"
+        android:textSize="26dp"
+        android:maxLines="5"
+        android:layout_margin="10dp"
+        />
+
+    <Button
+        android:id="@+id/capture_image_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Capture Image"
+        android:textAllCaps="false"
+        android:layout_above="@+id/detect_text_image_btn"
+        android:background="@color/teal_700"
+        android:textColor="@android:color/white"
+        android:textSize="17dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <Button
+        android:id="@+id/detect_text_image_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Detect Text"
+        android:textAllCaps="false"
+        android:background="@color/purple_500"
+        android:textColor="@android:color/white"
+        android:textSize="17dp"
+        />
+</RelativeLayout>
