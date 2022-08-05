@@ -4,13 +4,15 @@
 //    id 'com.android.library' version '7.2.1' apply false
 //}
 buildscript {
+    ext.kotlin_version = '1.7.20-Beta'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.2.1'
         classpath 'com.google.gms:google-services:4.3.13'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
