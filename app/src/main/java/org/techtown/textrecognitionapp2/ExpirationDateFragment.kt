@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.techtown.textrecognitionapp2.databinding.FragmentBarcodeBinding
 import org.techtown.textrecognitionapp2.databinding.FragmentExpirationDateBinding
+import org.techtown.textrecognitionapp2.org.techtown.textrecognitionapp2.MainActivity
 
 class ExpirationDateFragment : Fragment() {
     var mainActivity: MainActivity? = null
