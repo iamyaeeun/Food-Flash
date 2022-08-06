@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "956369468039",
+    "project_id": "text-recognition-app2-1b1aa",
+    "storage_bucket": "text-recognition-app2-1b1aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956369468039:android:21b943b64fe10dfa44d622",
+        "android_client_info": {
+          "package_name": "org.techtown.textrecognitionapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956369468039-9j8475ok6kihpg32o1c4388jh6gjjg1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMVTGujAfEbpq7AZfneRczMOf7yoDBJFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956369468039-9j8475ok6kihpg32o1c4388jh6gjjg1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
