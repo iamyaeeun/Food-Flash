@@ -1,10 +1,11 @@
-package kr.co.sungshin.foodflash
+package org.techtown.textrecognitionapp2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import kr.co.sungshin.foodflash.databinding.ActivityMainBinding
-import kr.co.sungshin.foodflash.databinding.FragmentInformationBinding
+import org.techtown.textrecognitionapp2.Memo
+import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
+import org.techtown.textrecognitionapp2.databinding.FragmentInformationBinding
 
 
 class MainActivity : AppCompatActivity() {
