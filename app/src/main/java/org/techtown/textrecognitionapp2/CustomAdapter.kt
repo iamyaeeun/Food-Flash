@@ -1,10 +1,10 @@
-package kr.co.sungshin.foodflash
+package org.techtown.textrecognitionapp2
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kr.co.sungshin.foodflash.databinding.ItemRecyclerBinding
+import org.techtown.textrecognitionapp2.databinding.ItemRecyclerBinding
 import java.text.SimpleDateFormat
 
 class CustomAdapter: RecyclerView.Adapter<Holder>() {

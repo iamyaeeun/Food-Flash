@@ -1,49 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:clickable="true"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="400dp" />
-
     <TextView
-        android:id="@+id/text_display"
-        android:layout_width="match_parent"
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:layout_below="@+id/image_view"
-        android:textSize="26dp"
-        android:maxLines="5"
-        android:layout_margin="10dp"
-        />
+        android:layout_marginTop="16dp"
+        android:text="Food Flash"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/capture_image_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Capture Image"
-        android:textAllCaps="false"
-        android:layout_above="@+id/detect_text_image_btn"
-        android:background="@color/teal_700"
-        android:textColor="@android:color/white"
-        android:textSize="17dp"
-        android:layout_marginBottom="10dp"
-        />
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="410dp"
+        android:layout_height="653dp"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo">
 
-    <Button
-        android:id="@+id/detect_text_image_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Detect Text"
-        android:textAllCaps="false"
-        android:background="@color/purple_500"
-        android:textColor="@android:color/white"
-        android:textSize="17dp"
-        />
-</RelativeLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
