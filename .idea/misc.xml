@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/BaekChaeeun/AndroidStudioProjects/yaeeuntest/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/BaekChaeeun/AndroidStudioProjects/yaeeuntest/app/src/main/res/layout/fragment_barcode.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/BaekChaeeun/AndroidStudioProjects/yaeeuntest/app/src/main/res/layout/fragment_information.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/heoyaeeun/.android/studio/TextRecognitionApp2/app/src/main/res/layout/activity_main.xml" value="0.2786458333333333" />
       </map>
     </option>
