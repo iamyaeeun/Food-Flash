@@ -203,4 +203,5 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
     }
+
 }
