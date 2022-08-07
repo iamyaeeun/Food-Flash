@@ -100,61 +100,11 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     }
 
     //바코드 촬영 코드
-    fun startBarcodeReader(){
+    fun startBarcodeReader() {
         IntentIntegrator(this).initiateScan()
     }
-    //유통기한 촬영 후 텍스트 인식 코드 추가
-    fun dispatchTakePictureIntent() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (takePictureIntent.resolveActivity(packageManager) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-        }
-    }
-    fun detectTextFromImage() {
-        val inputImage = InputImage.fromBitmap(imageBitmap!!, 0)
-        val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-        textRecognizer.process(inputImage)
-            .addOnSuccessListener { text -> displayTextFromImage(text) }
-            .addOnFailureListener { e ->
-                Toast.makeText(this@MainActivity, "Error" + e.message, Toast.LENGTH_SHORT).show()
-                Log.d("Error: ", e.message!!)
-            }
-    }
-    fun displayTextFromImage(text: Text) {
-        val blockList = text.textBlocks
-        if (blockList.size == 0) {
-            msg = "글자를 인식하지 못했습니다. 다시 찍어주세요."
-            textView2!!.text = msg //Toast.makeText(this,"No Text Found in image.",Toast.LENGTH_SHORT).show();
-            speakExpirationDate()
-        } else {
-            for (block in text.textBlocks) {
-                msg = block.text
-                textView2!!.text = msg
-                speakExpirationDate()
-            }
-        }
-    }
-    //바코드, 유통기한 처리 코드(if문:유통기한 사진인 경우, else문:바코드인 경우)
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode== REQUEST_IMAGE_CAPTURE){
-            val extras = data!!.extras
-            imageBitmap = extras!!["data"] as Bitmap?
-            //imageView!!.setImageBitmap(imageBitmap)
-        }
-        else{
-            val result= IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-            if(result!=null){
-                barcode=result.contents
-                Toast.makeText(this,barcode, Toast.LENGTH_LONG).show()
-                speakBarcode()
-            }
-            else{
-                super.onActivityResult(requestCode, resultCode, data)
-            }
-        }
-    }
-    //바코드 음성 안내 코드 추가
+
+    //바코드 음성 안내 코드
     fun speakBarcode(){
         val text: String? = barcode
         tts!!.setPitch(0.6.toFloat())
@@ -166,17 +116,68 @@ class MainActivity : AppCompatActivity(),OnInitListener {
             tts!!.speak("이 식품은 "+text+"입니다. 유통기한을 촬영하려면 오른쪽 하단에 있는 버튼을, 메인 화면으로 돌아가려면 왼쪽 하단에 있는 버튼을 눌러주세요", TextToSpeech.QUEUE_FLUSH, null, "id1")
         }
     }
-    //유통기한 음성 안내 코드 추가
+    //유통기한 촬영 코드
+    fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePictureIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        }
+    }
+    //유통기한 사진으로부터 글자 인식
+    fun detectTextFromImage() {
+        val inputImage = InputImage.fromBitmap(imageBitmap!!, 0)
+        val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+        textRecognizer.process(inputImage)
+            .addOnSuccessListener { text -> displayTextFromImage(text) }
+            .addOnFailureListener { e ->
+                Toast.makeText(this@MainActivity, "Error" + e.message, Toast.LENGTH_SHORT).show()
+                Log.d("Error: ", e.message!!)
+            }
+    }
+    //인식한 유통기한 띄우기
+    fun displayTextFromImage(text: Text) {
+        val blockList = text.textBlocks
+        if (blockList.size == 0) {
+            msg = "글자를 인식하지 못했습니다. 다시 찍어주세요."
+            //textView2!!.text = msg
+            Toast.makeText(this,"No Text Found in image.",Toast.LENGTH_SHORT).show();
+            speakExpirationDate()
+        } else {
+            for (block in text.textBlocks) {
+                msg = block.text
+                //textView2!!.text = msg
+                Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+                speakExpirationDate()
+            }
+        }
+    }
+    //바코드, 유통기한 처리 코드(if문:유통기한 사진인 경우, else문:바코드인 경우)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode== REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            val extras = data!!.extras
+            imageBitmap = extras!!["data"] as Bitmap?
+            //imageView!!.setImageBitmap(imageBitmap)
+        }
+        else{
+            val result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+            if(result!=null){
+                barcode=result.contents
+                Toast.makeText(this,barcode,Toast.LENGTH_LONG).show()
+                //textView!!.text=barcode6
+                speakBarcode()
+            } else{
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+    }
+
+    //유통기한 음성 안내 코드
     fun speakExpirationDate(){
         val text: String? = msg
         tts!!.setPitch(0.6.toFloat())
         tts!!.setSpeechRate(0.1.toFloat())
-        if(text==null){
-            tts!!.speak("", TextToSpeech.QUEUE_FLUSH,null,"id4")
-        }
-        else{
-            tts!!.speak("", TextToSpeech.QUEUE_FLUSH, null, "id3")
-        }
+        tts!!.speak("이 식품의 유통기한은"+msg+"입니다.", TextToSpeech.QUEUE_FLUSH, null, "id3")
     }
 
     override fun onDestroy() {
@@ -193,7 +194,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
                 Log.e("TTS", "This Language is not supported")
             } else {
                 //btn_speak.setEnabled(true);
-                speakBarcode() //speakOut();
+                //speakBarcode() //speakOut();
             }
         } else {
             Log.e("TTS", "Initilization Failed!")

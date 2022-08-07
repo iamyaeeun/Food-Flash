@@ -31,6 +31,7 @@ class ExpirationDateFragment : Fragment() {
         binding.btnBack.setOnClickListener { mainActivity?.goBarcode() }
         binding.btnBackMain.setOnClickListener { mainActivity?.goMain() }
         binding.btnExpirationDate.setOnClickListener { mainActivity?.dispatchTakePictureIntent() }
+        binding.btnSpeakExpirationDate.setOnClickListener{mainActivity?.detectTextFromImage()}
         return binding.root
     }
 
