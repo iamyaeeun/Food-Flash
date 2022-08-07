@@ -13,35 +13,26 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="401dp"
-        android:layout_height="115dp"
+        android:layout_height="69dp"
         android:layout_marginStart="140dp"
         android:layout_marginEnd="140dp"
         android:layout_marginTop="15dp"
-        android:text="ExpirationDate Fragment"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSpeakExpirationDate" />
+        app:layout_constraintTop_toBottomOf="@+id/btnExpirationDate" />
 
     <Button
         android:id="@+id/btnExpirationDate"
         android:layout_width="300dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="36dp"
-        android:text="유통기한 촬영"
+        android:layout_height="229dp"
+        android:layout_marginTop="50dp"
+        android:text="유통기한 촬영 및 음성 안내"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnSpeakExpirationDate"
-        android:layout_width="300dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="30dp"
-        android:text="음성 안내"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnExpirationDate" />
 
     <Button
         android:id="@+id/btnBack"
