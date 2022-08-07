@@ -4,29 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="#FFFFFF"
     android:clickable="true"
     tools:context=".ExpirationDateFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="128dp"
-        android:text="ExpirationDate Fragment"
+        android:layout_width="401dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginTop="15dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnExpirationDate" />
+
+    <Button
+        android:id="@+id/btnExpirationDate"
+        android:layout_width="300dp"
+        android:layout_height="229dp"
+        android:layout_marginTop="50dp"
+        android:text="유통기한 촬영 및 음성 안내"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="119dp"
         android:text="뒤로가기"
         app:layout_constraintEnd_toStartOf="@+id/btnBackMain"
@@ -38,8 +51,8 @@
         android:id="@+id/btnBackMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="52dp"
         android:text="처음으로"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
