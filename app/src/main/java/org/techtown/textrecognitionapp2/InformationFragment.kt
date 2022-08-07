@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.techtown.textrecognitionapp2.databinding.FragmentInformationBinding
+import org.techtown.textrecognitionapp2.org.techtown.textrecognitionapp2.MainActivity
 
 class InformationFragment : Fragment() {
     var mainActivity: MainActivity? = null

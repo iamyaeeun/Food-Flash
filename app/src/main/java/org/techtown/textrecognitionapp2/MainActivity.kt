@@ -1,9 +1,9 @@
-package org.techtown.textrecognitionapp2
+package org.techtown.textrecognitionapp2.org.techtown.textrecognitionapp2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.techtown.textrecognitionapp2.Memo
+import org.techtown.textrecognitionapp2.*
 import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
 import org.techtown.textrecognitionapp2.databinding.FragmentInformationBinding
 
