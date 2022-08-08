@@ -17,7 +17,7 @@ import static android.content.ContentValues.TAG;
 public class BarDBActivityHelper extends SQLiteOpenHelper {
 
     private static String DB_PATH = "";
-    private static String DB_NAME ="barcodeData.db";
+    private static String DB_NAME ="reviseBarcodeData.db";
 
     private SQLiteDatabase mDataBase;
     private Context mContext;
