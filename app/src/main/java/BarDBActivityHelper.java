@@ -1,7 +1,7 @@
-import android.content.Context;
+import android.content.Context;  //Context 클래스(정보 접근, API 호출)
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase;  //데이터베이스 생성 및 버전 관리 도우미 클래스
+import android.database.sqlite.SQLiteOpenHelper;  //데이터베이스 생성 및 버전 관리 도우미 클래스
 import android.util.Log;
 
 import java.io.File;
@@ -14,8 +14,9 @@ import static android.content.ContentValues.TAG;
 
 public class BarDBActivityHelper extends SQLiteOpenHelper {
 
-    private static String DB_PATH = "";
-    private static String DB_NAME ="barcodeData.db";
+//    private static String TAG="DataBaseHelper"  //Logcat에 출력할 태그 이름
+    private static String DB_PATH = "";  //디바이스 장치에서 데이터베이스의 경로
+    private static String DB_NAME ="barcodeData.db";  //데이터베이스 이름
 
     private SQLiteDatabase mDataBase;
     private Context mContext;
