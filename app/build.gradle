@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "org.techtown.textrecognitionapp2"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -41,6 +41,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //추가
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
