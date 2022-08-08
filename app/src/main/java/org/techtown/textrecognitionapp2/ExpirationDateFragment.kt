@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import org.techtown.textrecognitionapp2.databinding.FragmentExpirationDateBinding
-import org.techtown.textrecognitionapp2.org.techtown.textrecognitionapp2.MainActivity
+import org.techtown.textrecognitionapp2.MainActivity
 
 class ExpirationDateFragment : Fragment() {
     var mainActivity: MainActivity? = null
@@ -25,9 +26,11 @@ class ExpirationDateFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_expiration_date, container, false)
+
         val binding = FragmentExpirationDateBinding.inflate(inflater, container, false)
         binding.btnBack.setOnClickListener { mainActivity?.goBarcode() }
         binding.btnBackMain.setOnClickListener { mainActivity?.goMain() }
+        binding.btnExpirationDate.setOnClickListener { mainActivity?.dispatchTakePictureIntent() }
         return binding.root
     }
 
