@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -14,6 +16,7 @@ public class BarAdapter {
     private Context mContext;
     private SQLiteDatabase mDb;
     private BarDBActivityHelper mDbHelper;
+    private String tableName="barcodeData";
 
     public BarAdapter(Context context)
     {
@@ -56,19 +59,24 @@ public class BarAdapter {
         mDbHelper.close();
     }
 
-    public Cursor selectBar(String[] colums, //category select
-                            String selection,
-                            String[] selectionArgs,
-                            String groupBy,
-                            String having,
-                            String orderby)
-    { //select 인자에 맞춘 질의문입니다. 조건에 맞춰 null을 사용하면 됩니다.
-        return mDb.query(BarDBActivity._TABLENAME3,
-                colums,
-                selection,
-                selectionArgs,
-                groupBy,
-                having,
-                orderby);
+    public List getTableData(){
+        try{
+            String sql="SELECT * FROM "+tableName;
+            List barList=new ArrayList();
+            BarDBActivity bar=null;
+            Cursor mCur=mDb.rawQuery(sql,null);
+            if(mCur!=null){
+                while(mCur.moveToNext()){
+                    bar=new BarDBActivity();
+                    bar.COL_BARCODE=mCur.getString(0);
+                    bar.COL_BARNAME=mCur.getString(1);
+                    barList.add(bar);
+                }
+            }
+            return barList;
+        }catch (SQLException mSQLException){
+            Log.e(TAG,"getTestData >>"+mSQLException.toString());
+            throw mSQLException;
+        }
     }
 }

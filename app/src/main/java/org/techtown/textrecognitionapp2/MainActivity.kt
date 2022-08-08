@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     var textView2: TextView? = null
     var imageBitmap: Bitmap? = null
     var msg: String? = null
+    var barList:List<BarDBActivity>?=null
 
     val binding_main by lazy { ActivityMainBinding.inflate(layoutInflater) }
     val binding by lazy { FragmentInformationBinding.inflate(layoutInflater) }
@@ -41,6 +42,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         textView= findViewById<TextView>(R.id.textView)
         textView2=findViewById<TextView>(R.id.textView2)
         tts = TextToSpeech(this, this)
+
+        //init DB
+        var mDbHelper = BarAdapter(applicationContext)
+        mDbHelper.createDatabase()
+        mDbHelper.open()
+        barList = mDbHelper.tableData as List<BarDBActivity>
+        mDbHelper.close()
 
         val data:MutableList<Memo> = loadData()
         var adapter = CustomAdapter()
@@ -150,7 +158,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         else{
             val result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
             if(result!=null){
-                barcode=result.contents
+                barcode=result.contents+".0"
+                //DB에 바코드 값 있는지 검색
+                for (i in barList?.indices!!) {
+                    if (barcode == barList!!.get(i).COL_BARCODE) {
+                        barcode=barList!!.get(i).COL_BARNAME
+                    }
+                }
                 Toast.makeText(this,barcode,Toast.LENGTH_LONG).show()
                 //textView!!.text=barcode6
                 speakBarcode()
