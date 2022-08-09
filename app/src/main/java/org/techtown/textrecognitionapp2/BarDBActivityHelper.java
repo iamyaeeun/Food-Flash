@@ -1,3 +1,5 @@
+//BarDBAcivityHelper.java는 헬퍼 클래스를 담고 있음 => 데이터베이스 생성 및 관리 역할
+
 package org.techtown.textrecognitionapp2;
 
 import android.content.Context;

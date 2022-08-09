@@ -1,3 +1,6 @@
+//데이터베이스 정보
+
+
 package org.techtown.textrecognitionapp2;
 
 public class BarDBActivity {
