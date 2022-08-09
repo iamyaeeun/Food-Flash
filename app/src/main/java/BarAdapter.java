@@ -1,3 +1,5 @@
+//BarAdapter.java는 BarAdapter 클래스를 담고 있음 => 데이터베이스에 접근하여 수행하는 작업들을 추상화시켜주는 역할
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -64,7 +66,7 @@ public class BarAdapter {
             String orderby
     )
 
-    { //select 인자에 맞춘 질의문입니다. 조건에 맞춰 null을 사용하면 됩니다.
+    { //select 인자에 맞춘 질의문.
         return mDb.query(BarDBActivity._TABLENAME3,
                 colums,
                 selection,

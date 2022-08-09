@@ -1,3 +1,5 @@
+//BarDBAcivityHelper.java는 헬퍼 클래스를 담고 있음 => 데이터베이스 생성 및 관리 역할
+
 import android.content.Context;  //Context 클래스(정보 접근, API 호출)
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;  //데이터베이스 생성 및 버전 관리 도우미 클래스
@@ -22,7 +24,7 @@ public class BarDBActivityHelper extends SQLiteOpenHelper {
     private Context mContext;
 
     public BarDBActivityHelper(Context context){
-        super(context, DB_NAME, null, 1);// 1은 데이터베이스 버젼
+        super(context, DB_NAME, null, 1);  // 1은 데이터베이스의 버전을 의미함
         if(android.os.Build.VERSION.SDK_INT >= 17){
             DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
         }
