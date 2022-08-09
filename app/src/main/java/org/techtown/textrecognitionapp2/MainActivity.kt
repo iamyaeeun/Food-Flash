@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         barList = mDbHelper.tableData as List<BarDBActivity>
         mDbHelper.close()
 
-        val data:MutableList<Memo> = loadData()
+        val data:MutableList<Memo> = loadData(barcode, expirationDate)
         var adapter = CustomAdapter()
         adapter.listData = data
         binding.recyclerView.adapter = adapter
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.commit()
     }
 
-    fun loadData(): MutableList<Memo> {
+    fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
         val data: MutableList<Memo> = mutableListOf()
         for (no in 1..100) {
             val title = "비요뜨 ${no}"
