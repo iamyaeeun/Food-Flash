@@ -1,3 +1,5 @@
+//BarAdapter.java는 BarAdapter 클래스를 담고 있음 => 데이터베이스에 접근하여 수행하는 작업들을 추상화시켜주는 역할
+
 package org.techtown.textrecognitionapp2;
 
 import android.content.Context;
