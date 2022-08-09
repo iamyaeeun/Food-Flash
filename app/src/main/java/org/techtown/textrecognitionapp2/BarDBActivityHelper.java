@@ -16,7 +16,7 @@ import java.io.OutputStream;
 
 import static android.content.ContentValues.TAG;
 
-public class BarDBActivityHelper extends SQLiteOpenHelper {
+public class BarDBActivityHelper extends SQLiteOpenHelper {  //데이터베이스 생성 및 관리
 
     private static String DB_PATH = "";
     private static String DB_NAME ="reviseBarcodeData.db";
@@ -38,34 +38,30 @@ public class BarDBActivityHelper extends SQLiteOpenHelper {
 
     public void createDataBase() throws IOException
     {
-        //데이터베이스가 없으면 asset폴더에서 복사해온다.
-        boolean mDataBaseExist = checkDataBase();
+        boolean mDataBaseExist = checkDataBase();  //DB가 없으면 assets 폴더에서 복사
         if(!mDataBaseExist)
         {
             this.getReadableDatabase();
             this.close();
             try
             {
-                //Copy the database from assests
-                copyDataBase();
+                copyDataBase();  //assets 폴더에서 DB 복사
                 Log.e(TAG, "createDatabase database created");
             }
-            catch (IOException mIOException)
+            catch (IOException mIOException)  //exception 발생시 에러코드 출력
             {
                 throw new Error("ErrorCopyingDataBase");
             }
         }
     }
-    ///data/data/your package/databases/Da Name <-이 경로에서 데이터베이스가 존재하는지 확인한다
-    private boolean checkDataBase()
+    private boolean checkDataBase()  //data/data/your package/databases/Da Name <-이 경로에 DB 존재하는지 확인
     {
         File dbFile = new File(DB_PATH + DB_NAME);
         //Log.v("dbFile", dbFile + "   "+ dbFile.exists());
         return dbFile.exists();
     }
 
-    //assets폴더에서 데이터베이스를 복사한다.
-    private void copyDataBase() throws IOException
+    private void copyDataBase() throws IOException  //assets 폴더에서 DB 복사
     {
         InputStream mInput = mContext.getAssets().open(DB_NAME);
         String outFileName = DB_PATH + DB_NAME;
@@ -81,8 +77,7 @@ public class BarDBActivityHelper extends SQLiteOpenHelper {
         mInput.close();
     }
 
-    //데이터베이스를 열어서 쿼리를 쓸수있게만든다.
-    public void openDataBase() throws SQLException
+    public void openDataBase() throws SQLException  //DB를 열어서 쿼리 작성 가능하게 만듦
     {
         String mPath = DB_PATH + DB_NAME;
         //Log.v("mPath", mPath);
@@ -94,7 +89,7 @@ public class BarDBActivityHelper extends SQLiteOpenHelper {
     @Override
     public synchronized void close()
     {
-        if(mDataBase != null)
+        if(mDataBase != null)  //DB가 null이 아니라면 DB 닫기
             mDataBase.close();
         super.close();
     }

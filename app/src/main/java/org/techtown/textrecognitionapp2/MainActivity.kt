@@ -96,8 +96,9 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.commit()
     }
 
+    val data: MutableList<Memo> = mutableListOf()
+
     fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
-        val data: MutableList<Memo> = mutableListOf()
         for (no in 1..100) {
             val title = "비요뜨 ${no}"
             val date = System.currentTimeMillis()
@@ -161,6 +162,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
                 barcode=result.contents+".0"
                 //DB에 바코드 값 있는지 검색
                 for (i in barList?.indices!!) {
+                    //system.out.print(barList!!.get(i).COL_BARCODE, barList!!.get(i).COL_BARNAME) => 바코드가 안드로이드에 잘 들어왔는지 확인
                     if (barcode == barList!!.get(i).COL_BARCODE) {
                         barcode=barList!!.get(i).COL_BARNAME
                     }
@@ -177,7 +179,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun speakBarcode(){
         val text: String? = barcode
         tts!!.setPitch(0.6.toFloat())
-        tts!!.setSpeechRate(0.1.toFloat())
+        tts!!.setSpeechRate(1.0.toFloat())
         if(text==null){
             tts!!.speak("바코드를 인식하여 식품명을 음성 안내 받으시거나 식품 사진을 촬영하신 후 유통기한을 음성 안내 받으시려면 화면 위에 있는 식품 유통기한 확인 버튼을, 저장된 식품을 보시려면 화면 아래에 있는 식품 정보 확인 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH,null,"id2")
         }
@@ -189,7 +191,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun speakExpirationDate(){
         val text: String? = msg
         tts!!.setPitch(0.6.toFloat())
-        tts!!.setSpeechRate(0.1.toFloat())
+        tts!!.setSpeechRate(1.0.toFloat())
         if(text==null) tts!!.speak("글자를 인식하지 못했습니다. 다시 찍어주세요.", TextToSpeech.QUEUE_FLUSH, null, "id4")
         else tts!!.speak("이 식품의 유통기한은"+msg+"입니다. 메인으로 돌아가시려면 오른쪽 하단에 있는 버튼을, 바코드를 인식하여 상품명을 다시 안내받으시려면 왼쪽 하단에 있는 뒤로가기 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH, null, "id3")
     }
