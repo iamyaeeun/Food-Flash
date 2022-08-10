@@ -22,37 +22,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBarcode" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btnBarcode"
         android:layout_width="300dp"
-        android:layout_height="229dp"
+        android:layout_height="230dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/solid_button"
+        android:backgroundTint="#EDB3B3"
         android:onClick="startBarcodeReader"
         android:text="바코드 촬영 및 음성 안내"
+        android:contentDescription="카메라를 사용해 포장지의 바코드를 촬영하고 음식의 이름을 음성 안내합니다"
+        android:textSize="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btnNext"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="60dp"
-        android:text="NEXT"
+        android:background="@drawable/solid_button"
+        android:text="다음\n으로"
+        android:textSize="20dp"
+        android:contentDescription="다음 유통기한을 촬영하는 화면으로 넘어갑니다"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btnBackToMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="142dp"
-        android:text="처음으로"
+        android:background="@drawable/solid_button"
+        android:text="처음\n으로"
+        android:textSize="20dp"
+        android:contentDescription="첫 화면으로 돌아갑니다"
+
         app:layout_constraintEnd_toStartOf="@+id/btnNext"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
