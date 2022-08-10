@@ -22,6 +22,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
     var tts: TextToSpeech? = null
+    var expirationDate: String? = null
     var textView: TextView? = null
     var textView2: TextView? = null
     var imageBitmap: Bitmap? = null
@@ -110,7 +111,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.add(R.id.frameLayout, informationFragment)
         transaction.addToBackStack("Information")
         transaction.commit()
-
+    } //}추가
     /* DB팀 구현 부분 잠시 주석 처리
     fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
         val data: MutableList<Memo> = mutableListOf()
@@ -123,8 +124,6 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         return data
     }
     */
-
-
 
     //바코드 촬영 코드 (여기부터 예은 추가)
     fun startBarcodeReader() {
