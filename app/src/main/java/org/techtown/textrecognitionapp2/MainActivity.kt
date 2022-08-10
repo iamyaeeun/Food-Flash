@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     var textView2: TextView? = null
     var imageBitmap: Bitmap? = null
     var msg: String? = null
+    var barList:List<BarDBActivity>?=null
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -56,6 +57,20 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.commit()
         intent.putExtra("informationData", informationList)
 
+        //init DB
+        var mDbHelper = BarAdapter(applicationContext)
+        mDbHelper.createDatabase()
+        mDbHelper.open()
+        barList = mDbHelper.tableData as List<BarDBActivity>
+
+        /* DB팀 구현 부분 잠시 주석 처리
+        val data:MutableList<Memo> = loadData(barcode, expirationDate)
+        var adapter = CustomAdapter()
+        adapter.listData = data
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        */
+        
         setMainFragment()
 
     }
@@ -96,7 +111,18 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.addToBackStack("Information")
         transaction.commit()
 
+    /* DB팀 구현 부분 잠시 주석 처리
+    fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
+        val data: MutableList<Memo> = mutableListOf()
+        for (no in 1..100) {
+            val title = "비요뜨 ${no}"
+            val date = System.currentTimeMillis()
+            var memo = Memo(no,title, date)
+            data.add(memo)
+        }
+        return data
     }
+    */
 
 
 
@@ -151,7 +177,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         else{
             val result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
             if(result!=null){
-                barcode=result.contents
+                barcode=result.contents+".0"
+                //DB에 바코드 값 있는지 검색
+                for (i in barList?.indices!!) {
+                    if (barcode == barList!!.get(i).COL_BARCODE) {
+                        barcode=barList!!.get(i).COL_BARNAME
+                    }
+                }
                 Toast.makeText(this,barcode,Toast.LENGTH_LONG).show()
                 //textView!!.text=barcode6
                 speakBarcode()

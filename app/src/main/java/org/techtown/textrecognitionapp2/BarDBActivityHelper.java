@@ -1,3 +1,5 @@
+//BarDBAcivityHelper.java는 헬퍼 클래스를 담고 있음 => 데이터베이스 생성 및 관리 역할
+
 package org.techtown.textrecognitionapp2;
 
 import android.content.Context;
@@ -17,7 +19,7 @@ import static android.content.ContentValues.TAG;
 public class BarDBActivityHelper extends SQLiteOpenHelper {
 
     private static String DB_PATH = "";
-    private static String DB_NAME ="barcodeData.db";
+    private static String DB_NAME ="reviseBarcodeData.db";
 
     private SQLiteDatabase mDataBase;
     private Context mContext;
