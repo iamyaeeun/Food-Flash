@@ -21,6 +21,7 @@ import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
 import org.techtown.textrecognitionapp2.databinding.FragmentInformationBinding
 import java.util.*
 
+
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
     var tts: TextToSpeech? = null
