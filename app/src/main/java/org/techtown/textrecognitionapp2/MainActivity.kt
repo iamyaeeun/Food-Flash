@@ -21,6 +21,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
+    var expirationDate:String?=null
     var tts: TextToSpeech? = null
     var textView: TextView? = null
     var textView2: TextView? = null
