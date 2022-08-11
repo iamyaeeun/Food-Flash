@@ -50,11 +50,11 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         barList = mDbHelper.tableData as List<BarDBActivity>
         mDbHelper.close()
 
-        val data:MutableList<Memo> = loadData(barcode, expirationDate)
-        var adapter = CustomAdapter()
-        adapter.listData = data
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+//        val data:MutableList<Memo> = loadData(barcode, expirationDate)
+//        var adapter = CustomAdapter()
+//        adapter.listData = data
+//        binding.recyclerView.adapter = adapter
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
         setMainFragment()
     }
@@ -96,16 +96,16 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.commit()
     }
 
-    fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
-        val data: MutableList<Memo> = mutableListOf()
-        for (no in 1..100) {
-            val title = "비요뜨 ${no}"
-            val date = System.currentTimeMillis()
-            var memo = Memo(no,title, date)
-            data.add(memo)
-        }
-        return data
-    }
+//    fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
+//        val data: MutableList<Memo> = mutableListOf()
+//        for (no in 1..100) {
+//            val title = "비요뜨 ${no}"
+//            val date = System.currentTimeMillis()
+//            var memo = Memo(no,title, date)
+//            data.add(memo)
+//        }
+//        return data
+//    }
 
     //바코드 촬영 코드 (여기부터 예은 추가)
     fun startBarcodeReader() {
