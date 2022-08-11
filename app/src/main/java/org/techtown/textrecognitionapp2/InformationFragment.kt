@@ -17,7 +17,6 @@ class InformationFragment : Fragment() {
 
     lateinit var binding: FragmentInformationBinding
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(context is MainActivity) mainActivity = context

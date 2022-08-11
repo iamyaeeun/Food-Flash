@@ -28,22 +28,27 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     var imageBitmap: Bitmap? = null
     var msg: String? = null
     var barList:List<BarDBActivity>?=null
+    var informationList: ArrayList<InformationData> = loadData(barcode,expirationDate)
+    var cnt:Int=0
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    fun loadData(): ArrayList<InformationData> {
+    fun loadData(barcode:String? , expirationDate:String?): ArrayList<InformationData> {
         val data: ArrayList<InformationData> = arrayListOf()
+        /*
         for (no in 1..100) {
             val title = "비요뜨 ${no}"
             val date = "${System.currentTimeMillis()}" // 오늘의 날짜를 받아옴
             var allInfo = InformationData(no,title, date)
             data.add(allInfo)
         }
+        */
+        val title = barcode
+        val date = expirationDate
+        var allInfo = InformationData(cnt,title,date)
+        data.add(allInfo)//if(title!=null&&date!=null) 추가하기
         return data
     }
-
-    var informationList: ArrayList<InformationData> = loadData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -52,28 +57,18 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         textView2=findViewById<TextView>(R.id.textView2)
         tts = TextToSpeech(this, this)
 
-
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, InformationFragment())
         transaction.commit()
         intent.putExtra("informationData", informationList)
 
-        //init DB
+        //공공데이터 DB 불러오기
         var mDbHelper = BarAdapter(applicationContext)
-        mDbHelper.createDatabase()
+        //mDbHelper.createDatabase()
         mDbHelper.open()
         barList = mDbHelper.tableData as List<BarDBActivity>
 
-        /* DB팀 구현 부분 잠시 주석 처리
-        val data:MutableList<Memo> = loadData(barcode, expirationDate)
-        var adapter = CustomAdapter()
-        adapter.listData = data
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        */
-        
         setMainFragment()
-
     }
 
     fun setMainFragment() {
@@ -107,11 +102,10 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun goInformation() {
         val informationFragment = InformationFragment()
         val transaction = supportFragmentManager.beginTransaction()
-
         transaction.add(R.id.frameLayout, informationFragment)
         transaction.addToBackStack("Information")
         transaction.commit()
-    } //}추가
+    }
     /* DB팀 구현 부분 잠시 주석 처리
     fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
         val data: MutableList<Memo> = mutableListOf()
@@ -159,11 +153,16 @@ class MainActivity : AppCompatActivity(),OnInitListener {
             for (block in text.textBlocks) {
                 msg = block.text
                 //textView2!!.text = msg
+                expirationDate=msg //추가
+                cnt++
+                val info=InformationData(cnt,barcode,expirationDate)
+                informationList.add(info)
                 Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
                 speakExpirationDate()
             }
         }
     }
+
     //바코드, 유통기한 처리 코드(if문:유통기한 사진인 경우, else문:바코드인 경우)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
