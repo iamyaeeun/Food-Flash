@@ -22,7 +22,6 @@ import java.util.*
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
     var tts: TextToSpeech? = null
-    var expirationDate: String? = null
     var textView: TextView? = null
     var textView2: TextView? = null
     var imageBitmap: Bitmap? = null
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.add(R.id.frameLayout, informationFragment)
         transaction.addToBackStack("Information")
         transaction.commit()
-    } //}추가
+    }
     /* DB팀 구현 부분 잠시 주석 처리
     fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
         val data: MutableList<Memo> = mutableListOf()
@@ -124,6 +123,8 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         return data
     }
     */
+
+
 
     //바코드 촬영 코드 (여기부터 예은 추가)
     fun startBarcodeReader() {
@@ -195,7 +196,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun speakBarcode(){
         val text: String? = barcode
         tts!!.setPitch(0.6.toFloat())
-        tts!!.setSpeechRate(1.0.toFloat())
+        tts!!.setSpeechRate(0.1.toFloat())
         if(text==null){
             tts!!.speak("바코드를 인식하여 식품명을 음성 안내 받으시거나 식품 사진을 촬영하신 후 유통기한을 음성 안내 받으시려면 화면 위에 있는 식품 유통기한 확인 버튼을, 저장된 식품을 보시려면 화면 아래에 있는 식품 정보 확인 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH,null,"id2")
         }
@@ -207,7 +208,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun speakExpirationDate(){
         val text: String? = msg
         tts!!.setPitch(0.6.toFloat())
-        tts!!.setSpeechRate(1.0.toFloat())
+        tts!!.setSpeechRate(0.1.toFloat())
         if(text==null) tts!!.speak("글자를 인식하지 못했습니다. 다시 찍어주세요.", TextToSpeech.QUEUE_FLUSH, null, "id4")
         else tts!!.speak("이 식품의 유통기한은"+msg+"입니다. 메인으로 돌아가시려면 오른쪽 하단에 있는 버튼을, 바코드를 인식하여 상품명을 다시 안내받으시려면 왼쪽 하단에 있는 뒤로가기 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH, null, "id3")
     }
