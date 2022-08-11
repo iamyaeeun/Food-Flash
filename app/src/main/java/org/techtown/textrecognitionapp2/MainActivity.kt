@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.add(R.id.frameLayout, informationFragment)
         transaction.addToBackStack("Information")
         transaction.commit()
-
+    }
     /* DB팀 구현 부분 잠시 주석 처리
     fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
         val data: MutableList<Memo> = mutableListOf()
