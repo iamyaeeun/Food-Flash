@@ -21,28 +21,34 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
+    var expirationDate:String?=null
     var tts: TextToSpeech? = null
     var textView: TextView? = null
     var textView2: TextView? = null
     var imageBitmap: Bitmap? = null
     var msg: String? = null
     var barList:List<BarDBActivity>?=null
+    var informationList: ArrayList<InformationData> = loadData(barcode,expirationDate)
+    var cnt:Int=0
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    fun loadData(): ArrayList<InformationData> {
+    fun loadData(barcode:String? , expirationDate:String?): ArrayList<InformationData> {
         val data: ArrayList<InformationData> = arrayListOf()
+        /*
         for (no in 1..100) {
             val title = "비요뜨 ${no}"
             val date = "${System.currentTimeMillis()}" // 오늘의 날짜를 받아옴
             var allInfo = InformationData(no,title, date)
             data.add(allInfo)
         }
+        */
+        val title = barcode
+        val date = expirationDate
+        var allInfo = InformationData(cnt,title,date)
+        data.add(allInfo)//if(title!=null&&date!=null) 추가하기
         return data
     }
-
-    var informationList: ArrayList<InformationData> = loadData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -51,28 +57,18 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         textView2=findViewById<TextView>(R.id.textView2)
         tts = TextToSpeech(this, this)
 
-
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, InformationFragment())
         transaction.commit()
         intent.putExtra("informationData", informationList)
 
-        //init DB
+        //공공데이터 DB 불러오기
         var mDbHelper = BarAdapter(applicationContext)
-        mDbHelper.createDatabase()
+        //mDbHelper.createDatabase()
         mDbHelper.open()
         barList = mDbHelper.tableData as List<BarDBActivity>
 
-        /* DB팀 구현 부분 잠시 주석 처리
-        val data:MutableList<Memo> = loadData(barcode, expirationDate)
-        var adapter = CustomAdapter()
-        adapter.listData = data
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        */
-        
         setMainFragment()
-
     }
 
     fun setMainFragment() {
@@ -106,7 +102,6 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun goInformation() {
         val informationFragment = InformationFragment()
         val transaction = supportFragmentManager.beginTransaction()
-
         transaction.add(R.id.frameLayout, informationFragment)
         transaction.addToBackStack("Information")
         transaction.commit()
@@ -160,11 +155,16 @@ class MainActivity : AppCompatActivity(),OnInitListener {
             for (block in text.textBlocks) {
                 msg = block.text
                 //textView2!!.text = msg
+                expirationDate=msg //추가
+                cnt++
+                val info=InformationData(cnt,barcode,expirationDate)
+                informationList.add(info)
                 Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
                 speakExpirationDate()
             }
         }
     }
+
     //바코드, 유통기한 처리 코드(if문:유통기한 사진인 경우, else문:바코드인 경우)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -185,7 +185,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
                     }
                 }
                 Toast.makeText(this,barcode,Toast.LENGTH_LONG).show()
-                //textView!!.text=barcode6
+                //textView!!.text=barcode
                 speakBarcode()
             } else{
                 super.onActivityResult(requestCode, resultCode, data)
@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun speakBarcode(){
         val text: String? = barcode
         tts!!.setPitch(0.6.toFloat())
-        tts!!.setSpeechRate(0.1.toFloat())
+        tts!!.setSpeechRate(1.0.toFloat())
         if(text==null){
             tts!!.speak("바코드를 인식하여 식품명을 음성 안내 받으시거나 식품 사진을 촬영하신 후 유통기한을 음성 안내 받으시려면 화면 위에 있는 식품 유통기한 확인 버튼을, 저장된 식품을 보시려면 화면 아래에 있는 식품 정보 확인 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH,null,"id2")
         }
@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     fun speakExpirationDate(){
         val text: String? = msg
         tts!!.setPitch(0.6.toFloat())
-        tts!!.setSpeechRate(0.1.toFloat())
+        tts!!.setSpeechRate(1.0.toFloat())
         if(text==null) tts!!.speak("글자를 인식하지 못했습니다. 다시 찍어주세요.", TextToSpeech.QUEUE_FLUSH, null, "id4")
         else tts!!.speak("이 식품의 유통기한은"+msg+"입니다. 메인으로 돌아가시려면 오른쪽 하단에 있는 버튼을, 바코드를 인식하여 상품명을 다시 안내받으시려면 왼쪽 하단에 있는 뒤로가기 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH, null, "id3")
     }
