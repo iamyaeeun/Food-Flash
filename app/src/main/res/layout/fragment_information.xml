@@ -7,17 +7,67 @@
     android:clickable="true"
     tools:context=".MainActivity">
 
-    <android.widget.Button
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="17dp"
+        android:background="@color/background_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread">
+
+        <TextView
+            android:id="@+id/textViewNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/button_mint"
+            android:fontFamily="@font/nanumsquareround_b"
+            android:text="순번"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:background="@color/button_mint"
+            android:fontFamily="@font/nanumsquareround_b"
+            android:text="음식 이름"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/button_mint"
+            android:fontFamily="@font/nanumsquareround_b"
+            android:text="유통기한"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+
+    <ImageButton
         android:id="@+id/btnInfoToMain"
-        android:layout_width="100dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="155dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="165dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="156dp"
-        android:layout_marginBottom="88dp"
-        android:background="@drawable/solid_button"
-        android:text="뒤로\n가기"
-        android:textSize="20dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="105dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="어플의 첫 화면으로 돌아가는 버튼입니다"
+        android:padding="0sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,15 +78,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="20dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btnInfoToMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:listitem="@layout/item_recycler">
 
     </androidx.recyclerview.widget.RecyclerView>

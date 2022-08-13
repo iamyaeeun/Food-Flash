@@ -9,9 +9,6 @@ import org.techtown.textrecognitionapp2.databinding.ItemRecyclerBinding
 class CustomAdapter(private var list: ArrayList<InformationData>,val onClickDeleteIcon: (info:InformationData)->Unit): RecyclerView.Adapter<CustomAdapter.ListItemViewHolder>() {
 
     inner class ListItemViewHolder(val binding: ItemRecyclerBinding): RecyclerView.ViewHolder(binding.root){
-        //var dataNo: TextView = itemView!!.findViewById(R.id.textNo)
-        //var dataTitle: TextView = itemView!!.findViewById(R.id.textTitle)
-        //var dataDate: TextView = itemView!!.findViewById(R.id.textDate)
 
         fun bind(data: InformationData, position: Int) {
             binding.textNo.text = "${data.getNo()}"
