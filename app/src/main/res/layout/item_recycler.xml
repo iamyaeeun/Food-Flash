@@ -34,4 +34,11 @@
         android:text="2022-08-12"
         android:textSize="20dp" />
 
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="삭제" />
+
 </LinearLayout>
