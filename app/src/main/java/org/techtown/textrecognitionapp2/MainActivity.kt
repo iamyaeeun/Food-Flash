@@ -7,7 +7,6 @@ import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mlkit.vision.common.InputImage
@@ -23,26 +22,17 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
     var tts: TextToSpeech? = null
     var expirationDate: String? = null
-    var textView: TextView? = null
-    var textView2: TextView? = null
     var imageBitmap: Bitmap? = null
     var msg: String? = null
     var barList:List<BarDBActivity>?=null
     var informationList: ArrayList<InformationData> = loadData(barcode,expirationDate)
     var cnt:Int=0
+    var mDbHelper2:UserAdapter?=null
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     fun loadData(barcode:String? , expirationDate:String?): ArrayList<InformationData> {
         val data: ArrayList<InformationData> = arrayListOf()
-        /*
-        for (no in 1..100) {
-            val title = "비요뜨 ${no}"
-            val date = "${System.currentTimeMillis()}" // 오늘의 날짜를 받아옴
-            var allInfo = InformationData(no,title, date)
-            data.add(allInfo)
-        }
-        */
         val title = barcode
         val date = expirationDate
         var allInfo = InformationData(cnt,title,date)
@@ -52,21 +42,24 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        //imageView = findViewById<ImageView>(R.id.image_view)
-        textView= findViewById<TextView>(R.id.textView)
-        textView2=findViewById<TextView>(R.id.textView2)
         tts = TextToSpeech(this, this)
-
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, InformationFragment())
-        transaction.commit()
-        intent.putExtra("informationData", informationList)
 
         //공공데이터 DB 불러오기
         var mDbHelper = BarAdapter(applicationContext)
         //mDbHelper.createDatabase()
         mDbHelper.open()
         barList = mDbHelper.tableData as List<BarDBActivity>
+
+        //사용자 DB 불러오기
+        mDbHelper2=UserAdapter(applicationContext)
+        mDbHelper2?.createDatabase()
+        mDbHelper2?.open()
+        informationList = mDbHelper2?.tableData as ArrayList<InformationData>
+
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout, InformationFragment())
+        transaction.commit()
+        intent.putExtra("informationData", informationList)
 
         setMainFragment()
     }
@@ -106,18 +99,6 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.addToBackStack("Information")
         transaction.commit()
     }
-    /* DB팀 구현 부분 잠시 주석 처리
-    fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
-        val data: MutableList<Memo> = mutableListOf()
-        for (no in 1..100) {
-            val title = "비요뜨 ${no}"
-            val date = System.currentTimeMillis()
-            var memo = Memo(no,title, date)
-            data.add(memo)
-        }
-        return data
-    }
-    */
 
     //바코드 촬영 코드 (여기부터 예은 추가)
     fun startBarcodeReader() {
@@ -146,17 +127,17 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         val blockList = text.textBlocks
         if (blockList.size == 0) {
             msg = null
-            //textView2!!.text = msg
             Toast.makeText(this,"글자를 인식하지 못했습니다. 다시 찍어주세요.",Toast.LENGTH_SHORT).show();
             speakExpirationDate()
         } else {
             for (block in text.textBlocks) {
                 msg = block.text
-                //textView2!!.text = msg
                 expirationDate=msg //추가
-                cnt++
+                cnt=informationList.size
                 val info=InformationData(cnt,barcode,expirationDate)
                 informationList.add(info)
+                //insert DB
+                mDbHelper2?.insert(cnt,barcode,expirationDate)
                 Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
                 speakExpirationDate()
             }
