@@ -10,7 +10,7 @@
 
     <android.widget.Button
         android:id="@+id/btnExpirationDate"
-        android:layout_width="0dp"
+        android:layout_width="330dp"
         android:layout_height="230dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
@@ -50,13 +50,13 @@
         android:padding="0sp"
         android:scaleType="centerCrop"
         android:src="@drawable/arrow_back"
-        app:layout_constraintEnd_toStartOf="@+id/btnGoMain"
+        app:layout_constraintEnd_toStartOf="@+id/btnBackMain"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnExpirationDate" />
 
     <ImageButton
-        android:id="@+id/btnGoMain"
+        android:id="@+id/btnBackMain"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="121dp"

@@ -7,7 +7,6 @@ import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mlkit.vision.common.InputImage
@@ -22,11 +21,10 @@ import java.util.*
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
     var tts: TextToSpeech? = null
-    var textView: TextView? = null
-    var textView2: TextView? = null
+    var expirationDate: String? = null
     var imageBitmap: Bitmap? = null
     var msg: String? = null
-    var barList:List<BarDBActivity>?=null
+    var barList: List<BarDBActivity>? = null
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -47,8 +45,8 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         //imageView = findViewById<ImageView>(R.id.image_view)
-        textView= findViewById<TextView>(R.id.textView)
-        textView2=findViewById<TextView>(R.id.textView2)
+        //textView= findViewById<TextView>(R.id.textView)
+        //textView2=findViewById<TextView>(R.id.textView2)
         tts = TextToSpeech(this, this)
 
 
@@ -110,6 +108,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.add(R.id.frameLayout, informationFragment)
         transaction.addToBackStack("Information")
         transaction.commit()
+    }
 
     /* DB팀 구현 부분 잠시 주석 처리
     fun loadData(barcode:String? , expirationData:String?): MutableList<Memo> {
@@ -123,7 +122,6 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         return data
     }
     */
-
 
 
     //바코드 촬영 코드 (여기부터 예은 추가)
@@ -148,6 +146,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
                 Log.d("Error: ", e.message!!)
             }
     }
+
     //인식한 유통기한 띄우기
     fun displayTextFromImage(text: Text) {
         val blockList = text.textBlocks
@@ -165,6 +164,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
             }
         }
     }
+
     //바코드, 유통기한 처리 코드(if문:유통기한 사진인 경우, else문:바코드인 경우)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -236,5 +236,4 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
     }
-
 }

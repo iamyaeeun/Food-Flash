@@ -24,12 +24,6 @@
         app:layout_constraintVertical_chainStyle="spread">
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
             android:id="@+id/textViewNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,12 +52,6 @@
             android:fontFamily="@font/nanumsquareround_b"
             android:text="유통기한"
             android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
     </LinearLayout>
 
