@@ -15,6 +15,11 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.google.zxing.integration.android.IntentIntegrator
 import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
+
+//잠시 추가
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 import java.util.*
 
 
@@ -48,13 +53,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         var mDbHelper = BarAdapter(applicationContext)
         //mDbHelper.createDatabase()
         mDbHelper.open()
-        barList = mDbHelper.tableData as List<BarDBActivity>
+        barList = mDbHelper.tableData as List<BarDBActivity>  //db에 있는 값들을 model을 적용해서 넣음
 
         //사용자 DB 불러오기
         mDbHelper2=UserAdapter(applicationContext)
         mDbHelper2?.createDatabase()
         mDbHelper2?.open()
-        informationList = mDbHelper2?.tableData as ArrayList<InformationData>
+        informationList = mDbHelper2?.tableData as ArrayList<InformationData>  //db에 있는 값들을 model에 적용해서 넣음
 
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, InformationFragment())
@@ -122,6 +127,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
                 Log.d("Error: ", e.message!!)
             }
     }
+
     //인식한 유통기한 띄우기
     fun displayTextFromImage(text: Text) {
         val blockList = text.textBlocks
@@ -133,6 +139,11 @@ class MainActivity : AppCompatActivity(),OnInitListener {
             for (block in text.textBlocks) {
                 msg = block.text
                 expirationDate=msg //추가
+                val dateIndex:String= expirationDate!!.substring(0 until 2)  //0부터 2 이전까지 자른 문자열을 반환 => '2', '0' 이 있는지 비교하기 위해
+                if (dateIndex=="20")  //추출된 글자 안에 "20"이 있으면 유통기한으로 인식
+                    println("유통기한 맞음")
+                else  //추출된 글자 안에 "20"이 없으면 유통기한으로 인식X
+                    println("유통기한이 아님")
                 cnt=informationList.size
                 val info=InformationData(cnt,barcode,expirationDate)
                 informationList.add(info)
