@@ -16,6 +16,11 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.google.zxing.integration.android.IntentIntegrator
 import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
+
+//잠시 추가
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 import java.util.*
 
 
@@ -143,6 +148,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
                 Log.d("Error: ", e.message!!)
             }
     }
+
     //인식한 유통기한 띄우기
     fun displayTextFromImage(text: Text) {
         val blockList = text.textBlocks
