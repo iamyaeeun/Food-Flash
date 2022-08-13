@@ -36,6 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:srcCompat="@drawable/foodflash_logo" />
+        android:src="@drawable/foodflash_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
