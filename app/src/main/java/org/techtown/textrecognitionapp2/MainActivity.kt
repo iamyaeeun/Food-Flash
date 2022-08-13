@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     var tts: TextToSpeech? = null
     var expirationDate: String? = null
     var imageBitmap: Bitmap? = null
-    var msg: String? = null
+    //var msg: String? = null
     var barList:List<BarDBActivity>?=null
     var informationList: ArrayList<InformationData> = loadData(barcode,expirationDate)
     var cnt:Int=0
@@ -125,21 +125,29 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     //인식한 유통기한 띄우기
     fun displayTextFromImage(text: Text) {
         val blockList = text.textBlocks
-        if (blockList.size == 0) {
-            msg = null
-            Toast.makeText(this,"글자를 인식하지 못했습니다. 다시 찍어주세요.",Toast.LENGTH_SHORT).show();
+        if (blockList.size == 0) {//글자를 인식하지 못한 경우
+            expirationDate = null
+            Toast.makeText(this,"유통기한을 인식하지 못했습니다. 다시 찍어주세요.",Toast.LENGTH_SHORT).show();
             speakExpirationDate()
-        } else {
+        } else {//글자를 인식한 경우
             for (block in text.textBlocks) {
-                msg = block.text
-                expirationDate=msg //추가
-                cnt=informationList.size
-                val info=InformationData(cnt,barcode,expirationDate)
-                informationList.add(info)
-                //insert DB
-                mDbHelper2?.insert(cnt,barcode,expirationDate)
-                Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-                speakExpirationDate()
+                expirationDate=block.text
+                val dateIndex:String=expirationDate!!.substring(0 until 2)
+
+                if(dateIndex=="20"){//인식한 글자가 유통기한 형식에 맞는 경우
+                    cnt=informationList.size
+                    val info=InformationData(cnt,barcode,expirationDate)
+                    informationList.add(info)
+                    //insert DB
+                    mDbHelper2?.insert(cnt,barcode,expirationDate)
+                    Toast.makeText(this,expirationDate,Toast.LENGTH_SHORT).show();
+                    speakExpirationDate()
+                }
+                else{//인식한 글자가 유통기한 형식에 맞지 않는 경우
+                    expirationDate = null
+                    Toast.makeText(this,"유통기한을 인식하지 못했습니다. 다시 찍어주세요.",Toast.LENGTH_SHORT).show();
+                    speakExpirationDate()
+                }
             }
         }
     }
@@ -185,11 +193,11 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     }
     //유통기한 음성 안내 코드
     fun speakExpirationDate(){
-        val text: String? = msg
+        val text: String? = expirationDate
         tts!!.setPitch(0.6.toFloat())
         tts!!.setSpeechRate(1.0.toFloat())
-        if(text==null) tts!!.speak("글자를 인식하지 못했습니다. 다시 찍어주세요.", TextToSpeech.QUEUE_FLUSH, null, "id4")
-        else tts!!.speak("이 식품의 유통기한은"+msg+"입니다. 메인으로 돌아가시려면 오른쪽 하단에 있는 버튼을, 바코드를 인식하여 상품명을 다시 안내받으시려면 왼쪽 하단에 있는 뒤로가기 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH, null, "id3")
+        if(text==null) tts!!.speak("유통기한을 인식하지 못했습니다. 다시 찍어주세요.", TextToSpeech.QUEUE_FLUSH, null, "id4")
+        else tts!!.speak("이 식품의 유통기한은"+expirationDate+"입니다. 메인으로 돌아가시려면 오른쪽 하단에 있는 버튼을, 바코드를 인식하여 상품명을 다시 안내받으시려면 왼쪽 하단에 있는 뒤로가기 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH, null, "id3")
     }
     //음성 초기화, 소멸 코드
     override fun onDestroy() {
