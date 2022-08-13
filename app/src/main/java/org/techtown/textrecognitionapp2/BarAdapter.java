@@ -20,19 +20,19 @@ public class BarAdapter {
     private BarDBActivityHelper mDbHelper;
     private String tableName="barcodeData";
 
-    public BarAdapter(Context context)
+    public BarAdapter(Context context)  //다른 클래스에서 Activity를 Context를 활용해 호출
     {
         this.mContext = context;
         mDbHelper = new BarDBActivityHelper(mContext);
     }
 
-    public BarAdapter createDatabase() throws SQLException
+    public BarAdapter createDatabase() throws SQLException  //DB 생성 코드
     {
         try
         {
             mDbHelper.createDataBase();
         }
-        catch (IOException mIOException)
+        catch (IOException mIOException)  //예외 발생시 Log 출력
         {
             Log.e(TAG, mIOException.toString() + "  UnableToCreateDatabase");
             throw new Error("UnableToCreateDatabase");
@@ -40,7 +40,7 @@ public class BarAdapter {
         return this;
     }
 
-    public BarAdapter open() throws SQLException
+    public BarAdapter open() throws SQLException  //DB를 여는 코드
     {
         try
         {
@@ -48,7 +48,7 @@ public class BarAdapter {
             mDbHelper.close();
             mDb = mDbHelper.getReadableDatabase();
         }
-        catch (SQLException mSQLException)
+        catch (SQLException mSQLException)  //예외 발생시 처리 코드
         {
             Log.e(TAG, "open >>"+ mSQLException.toString());
             throw mSQLException;
@@ -59,20 +59,20 @@ public class BarAdapter {
     public void close()
     {
         mDbHelper.close();
-    }
+    }  //DB가 닫히도록 하는 코드
 
     public List getTableData(){
         try{
-            String sql="SELECT * FROM "+tableName;
-            List barList=new ArrayList();
-            BarDBActivity bar=null;
+            String sql="SELECT * FROM "+tableName;  //table 이름을 통해 바코드DB 불러옴
+            List barList=new ArrayList();  //모델을 넣을 리스트 생성
+            BarDBActivity bar=null;  //모델 선언
             Cursor mCur=mDb.rawQuery(sql,null);
             if(mCur!=null){
-                while(mCur.moveToNext()){
+                while(mCur.moveToNext()){  //컬럼의 마지막까지로 커서 설정
                     bar=new BarDBActivity();
                     bar.COL_BARCODE=mCur.getString(0);
                     bar.COL_BARNAME=mCur.getString(1);
-                    barList.add(bar);
+                    barList.add(bar);  //리스트에 바코드 값 넣기
                 }
             }
             return barList;
