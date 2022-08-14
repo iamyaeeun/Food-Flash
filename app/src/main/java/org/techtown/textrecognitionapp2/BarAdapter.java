@@ -66,7 +66,7 @@ public class BarAdapter {
             String sql="SELECT * FROM "+tableName;  //table 이름을 통해 바코드DB 불러옴
             List barList=new ArrayList();  //모델을 넣을 리스트 생성
             BarDBActivity bar=null;  //모델 선언
-            Cursor mCur=mDb.rawQuery(sql,null);
+            Cursor mCur=mDb.rawQuery(sql ,null);
             if(mCur!=null){
                 while(mCur.moveToNext()){  //컬럼의 마지막까지로 커서 설정
                     bar=new BarDBActivity();
