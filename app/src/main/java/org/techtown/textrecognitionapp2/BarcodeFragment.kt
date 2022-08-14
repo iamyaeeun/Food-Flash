@@ -39,7 +39,8 @@ class BarcodeFragment : androidx.fragment.app.Fragment(){
         binding.btnNext.setOnClickListener { mainActivity?.goExpirationDate() }
         binding.btnBackToMain.setOnClickListener { mainActivity?.goMain() }
         //추가
-        binding.btnBarcode.setOnClickListener {mainActivity?.startBarcodeReader()}
+
+        binding.btnBarcode.setOnClickListener { mainActivity?.startBarcodeReader() }
         return binding.root
     }
 

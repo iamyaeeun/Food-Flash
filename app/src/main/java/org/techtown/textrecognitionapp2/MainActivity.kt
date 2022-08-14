@@ -159,7 +159,6 @@ class MainActivity : AppCompatActivity(),OnInitListener {
             val extras = data!!.extras
             imageBitmap = extras!!["data"] as Bitmap?
             detectTextFromImage()
-            //imageView!!.setImageBitmap(imageBitmap)
         }
         else{
             val result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
@@ -172,7 +171,6 @@ class MainActivity : AppCompatActivity(),OnInitListener {
                     }
                 }
                 Toast.makeText(this,barcode,Toast.LENGTH_LONG).show()
-                //textView!!.text=barcode
                 speakBarcode()
             } else{
                 super.onActivityResult(requestCode, resultCode, data)
