@@ -10,9 +10,10 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
     <android.widget.Button
         android:id="@+id/btnBarcode"
-        android:layout_width="0dp"
+        android:layout_width="330dp"
         android:layout_height="230dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
@@ -30,18 +31,17 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnNext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
-
 
     <ImageButton
         android:id="@+id/btnNext"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="106dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="105dp"
         android:layout_marginEnd="60dp"
         android:background="@android:color/transparent"
         android:contentDescription="다음으로 유통기한을 확인하는 화면으로 넘어가는 버튼입니다"
@@ -57,7 +57,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginTop="110dp"
         android:layout_marginBottom="230dp"
         android:background="@android:color/transparent"
         android:contentDescription="어플의 첫 화면으로 돌아가는 버튼입니다"
