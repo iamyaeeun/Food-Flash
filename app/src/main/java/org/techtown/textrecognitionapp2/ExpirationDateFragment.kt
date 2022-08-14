@@ -24,9 +24,6 @@ class ExpirationDateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_expiration_date, container, false)
-
         val binding = FragmentExpirationDateBinding.inflate(inflater, container, false)
         binding.btnBack.setOnClickListener { mainActivity?.goBarcode() }
         binding.btnBackMain.setOnClickListener { mainActivity?.goMain() }
