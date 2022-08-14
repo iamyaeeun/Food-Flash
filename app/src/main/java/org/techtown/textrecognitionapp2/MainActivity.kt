@@ -132,9 +132,9 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         } else {//글자를 인식한 경우
             for (block in text.textBlocks) {
                 expirationDate=block.text
-                val dateIndex:String=expirationDate!!.substring(0 until 2)
+                val dateIndex:String=expirationDate!!.substring(0 until 1)
 
-                if(dateIndex=="20"){//인식한 글자가 유통기한 형식에 맞는 경우
+                if(dateIndex=="2"){//인식한 글자가 유통기한 형식에 맞는 경우
                     cnt=informationList.size
                     val info=InformationData(cnt,barcode,expirationDate)
                     informationList.add(info)
