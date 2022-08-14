@@ -7,8 +7,10 @@ import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -17,6 +19,18 @@ import com.google.zxing.integration.android.IntentIntegrator
 import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
 import java.util.*
 
+fun FragmentManager.setupForAccessibility() {
+    addOnBackStackChangedListener {
+        val lastFragmentWithView = fragments.last { it.view != null }
+        for (fragment in fragments) {
+            if (fragment == lastFragmentWithView) {
+                fragment.view?.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
+            } else {
+                fragment.view?.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
+            }
+        }
+    }
+}
 
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
@@ -39,8 +53,11 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         data.add(allInfo)//if(title!=null&&date!=null) 추가하기
         return data
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportFragmentManager.setupForAccessibility() //추가코드
+
         setContentView(binding.root)
         tts = TextToSpeech(this, this)
 
@@ -56,10 +73,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         mDbHelper2?.open()
         informationList = mDbHelper2?.tableData as ArrayList<InformationData>
 
+        /*
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, InformationFragment())
         transaction.commit()
         intent.putExtra("informationData", informationList)
+
+         */
 
         setMainFragment()
     }
@@ -97,6 +117,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.frameLayout, informationFragment)
         transaction.addToBackStack("Information")
+        intent.putExtra("informationData", informationList)
         transaction.commit()
     }
 

@@ -28,6 +28,11 @@ class BarcodeFragment : androidx.fragment.app.Fragment(){
         if(context is MainActivity) mainActivity = context
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setupForAccessibility()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,5 +48,6 @@ class BarcodeFragment : androidx.fragment.app.Fragment(){
         binding.btnBarcode.setOnClickListener { mainActivity?.startBarcodeReader() }
         return binding.root
     }
+
 
 }

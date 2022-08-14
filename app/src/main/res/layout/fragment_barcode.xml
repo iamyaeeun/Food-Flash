@@ -8,9 +8,6 @@
     android:clickable="true"
     tools:context=".BarcodeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <android.widget.Button
         android:id="@+id/btnBarcode"
         android:layout_width="330dp"

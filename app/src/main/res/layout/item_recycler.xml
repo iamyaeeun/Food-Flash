@@ -5,7 +5,12 @@
     android:layout_height="50dp"
     android:background="@color/background_color"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clickable="true"
+    >
+
 
     <TextView
         android:id="@+id/textNo"
@@ -37,15 +42,13 @@
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
+        android:layout_width="25dp"
+        android:layout_height="48dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/trashcan_icon"
         android:background="@android:color/transparent"
         android:contentDescription="해당 음식의 목록을 삭제합니다"
         android:scaleType="centerCrop"
-        />
-
+        app:srcCompat="@drawable/trashcan_icon" />
 
 
 </LinearLayout>
