@@ -20,14 +20,14 @@ import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
 import java.util.*
 
 class MainActivity : AppCompatActivity(),OnInitListener {
-    var barcode: String? = null
-    var tts: TextToSpeech? = null
-    var expirationDate: String? = null
-    var imageBitmap: Bitmap? = null
-    var barList:List<BarDBActivity>?=null
-    var informationList: ArrayList<InformationData>? = null
-    var cnt:Int=0
-    var mDbHelper2:UserAdapter?=null
+    var barcode: String? = null//바코드
+    var tts: TextToSpeech? = null//음성 안내
+    var expirationDate: String? = null//유통기한
+    var imageBitmap: Bitmap? = null//유통기한 이미지 받을 변수
+    var barList:List<BarDBActivity>?=null//공공DB 정보 담을 리스트(데이터 타입:BarDBActivity 식품 객체, 객체 멤버 변수: 바코드, 식품명)
+    var informationList: ArrayList<InformationData>? = null//사용자DB 정보 담을 리스트(데이터 타입:InformationData 식품 객체, 객체 멤버 변수: 순번, 식품명, 유통기한)
+    var cnt:Int=0//식품 순번
+    var mDbHelper2:UserAdapter?=null//UserAdapter는 사용자DB 관련 클래스
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -38,13 +38,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         tts = TextToSpeech(this, this)
 
         //공공데이터 DB 불러오기
-        var mDbHelper = BarAdapter(applicationContext)
+        var mDbHelper = BarAdapter(applicationContext)//BarAdapter는 공공DB 관련 클래스
         mDbHelper.createDatabase()
         mDbHelper.open()
         barList = mDbHelper.tableData as List<BarDBActivity>//공공DB 정보 리스트로 받아오기
 
         //사용자 DB 불러오기
-        mDbHelper2=UserAdapter(applicationContext)
+        mDbHelper2=UserAdapter(applicationContext)//UserAdapter는 사용자DB 관련 클래스
         mDbHelper2?.createDatabase()
         mDbHelper2?.open()
         informationList = mDbHelper2?.tableData as ArrayList<InformationData>//사용자DB 정보 리스트로 받아오기
