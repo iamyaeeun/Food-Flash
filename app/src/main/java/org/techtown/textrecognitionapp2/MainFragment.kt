@@ -17,16 +17,30 @@ class MainFragment : Fragment() {
         if(context is MainActivity) mainActivity = context
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setupForAccessibility()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_main, container, false)
+
+        /*
+        var rootView = inflater.inflate(R.layout.activity_main, null, false);
+        rootView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
+
+        if(rootView != null) {
+            rootView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+        }
+         */
+
         val binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.btnStart.setOnClickListener { mainActivity?.goBarcode() }
         binding.btnStart2.setOnClickListener { mainActivity?.goInformation() }
         return binding.root
     }
-
 }

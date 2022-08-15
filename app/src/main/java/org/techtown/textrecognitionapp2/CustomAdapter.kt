@@ -33,3 +33,4 @@ class CustomAdapter(private var list: ArrayList<InformationData>,val onClickDele
         return list.count()
     }
 }
+
