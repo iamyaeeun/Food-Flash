@@ -19,45 +19,21 @@ import com.google.zxing.integration.android.IntentIntegrator
 import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
 import java.util.*
 
-fun FragmentManager.setupForAccessibility() {
-    addOnBackStackChangedListener {
-        val lastFragmentWithView = fragments.last { it.view != null }
-        for (fragment in fragments) {
-            if (fragment == lastFragmentWithView) {
-                fragment.view?.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
-            } else {
-                fragment.view?.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
-            }
-        }
-    }
-}
-
 class MainActivity : AppCompatActivity(),OnInitListener {
     var barcode: String? = null
     var tts: TextToSpeech? = null
     var expirationDate: String? = null
     var imageBitmap: Bitmap? = null
-    //var msg: String? = null
     var barList:List<BarDBActivity>?=null
-    var informationList: ArrayList<InformationData> = loadData(barcode,expirationDate)
+    var informationList: ArrayList<InformationData>? = null
     var cnt:Int=0
     var mDbHelper2:UserAdapter?=null
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    fun loadData(barcode:String? , expirationDate:String?): ArrayList<InformationData> {
-        val data: ArrayList<InformationData> = arrayListOf()
-        val title = barcode
-        val date = expirationDate
-        var allInfo = InformationData(cnt,title,date)
-        data.add(allInfo)//if(title!=null&&date!=null) 추가하기
-        return data
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportFragmentManager.setupForAccessibility() //추가코드
-
+        supportFragmentManager.setupForAccessibility()
         setContentView(binding.root)
         tts = TextToSpeech(this, this)
 
@@ -65,31 +41,25 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         var mDbHelper = BarAdapter(applicationContext)
         mDbHelper.createDatabase()
         mDbHelper.open()
-        barList = mDbHelper.tableData as List<BarDBActivity>
+        barList = mDbHelper.tableData as List<BarDBActivity>//공공DB 정보 리스트로 받아오기
 
         //사용자 DB 불러오기
         mDbHelper2=UserAdapter(applicationContext)
         mDbHelper2?.createDatabase()
         mDbHelper2?.open()
-        informationList = mDbHelper2?.tableData as ArrayList<InformationData>
-
-        /*
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, InformationFragment())
-        transaction.commit()
-        intent.putExtra("informationData", informationList)
-
-         */
+        informationList = mDbHelper2?.tableData as ArrayList<InformationData>//사용자DB 정보 리스트로 받아오기
 
         setMainFragment()
     }
 
+    //메인 프래그먼트 설정
     fun setMainFragment() {
         val mainFragment: MainFragment = MainFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.frameLayout, mainFragment)
         transaction.commit()
     }
+    //바코드 프래그먼트로 이동
     fun goBarcode() {
         val barcodeFragment = BarcodeFragment()
         val transaction = supportFragmentManager.beginTransaction()
@@ -97,6 +67,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.addToBackStack("barcode")
         transaction.commit()
     }
+    //유통기한 프래그먼트로 이동
     fun goExpirationDate() {
         val expirationDateFragment = ExpirationDateFragment()
         val transaction = supportFragmentManager.beginTransaction()
@@ -104,6 +75,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.addToBackStack("expirationDate")
         transaction.commit()
     }
+    //메인 프래그먼트로 이동
     fun goMain() {
         val mainFragment = MainFragment()
         val transaction = supportFragmentManager.beginTransaction()
@@ -111,7 +83,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.addToBackStack("main")
         transaction.commit()
     }
-
+    //식품 정보 확인 프래그먼트로 이동
     fun goInformation() {
         val informationFragment = InformationFragment()
         val transaction = supportFragmentManager.beginTransaction()
@@ -121,29 +93,54 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         transaction.commit()
     }
 
-    //바코드 촬영 코드 (여기부터 예은 추가)
+    //바코드 촬영 후 onActivityResult 함수로 전달
     fun startBarcodeReader() {
         IntentIntegrator(this).initiateScan()
     }
-    //유통기한 촬영 코드
+    //유통기한 촬영 후 onActivityResult 함수로 전달
     fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (takePictureIntent.resolveActivity(packageManager) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         }
     }
+    //바코드, 유통기한 처리 코드(if문:유통기한 사진인 경우, else문:바코드인 경우)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){//requestCode 이용해 전달된 값이 바코드 스캔값인지 유통기한 사진인지 구분
+            val extras = data!!.extras
+            imageBitmap = extras!!["data"] as Bitmap?//imageBitmap 변수에 유통기한 이미지 대입
+            detectTextFromImage()//이미지로부터 글자 인식하는 함수로 이동
+        }
+        else{
+            val result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+            if(result!=null){
+                barcode=result.contents+".0"//DB에 바코드.0 형태로 저장되어 있어 이와 형태를 맞춰줌
+                //공공DB 정보 담은 리스트(데이터 타입:BarDBActivity 식품 객체, 멤버 변수: 바코드, 식품명)에 바코드 값 있는지 검색
+                for (i in barList?.indices!!) {
+                    if (barcode == barList!!.get(i).COL_BARCODE) {//찍은 바코드값과 일치하는 바코드값 가진 식품 객체 존재 시
+                        barcode=barList!!.get(i).COL_BARNAME//바코드 변수에 해당 식품 객체의 식품명 대입
+                    }
+                }
+                Toast.makeText(this,barcode,Toast.LENGTH_LONG).show()//식품명 토스트 메시지로 띄우기
+                speakBarcode()//식품명 음성 안내 함수로 이동
+            } else{
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+    }
     //유통기한 사진으로부터 글자 인식
     fun detectTextFromImage() {
         val inputImage = InputImage.fromBitmap(imageBitmap!!, 0)
-        val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-        textRecognizer.process(inputImage)
-            .addOnSuccessListener { text -> displayTextFromImage(text) }
+        val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)//ML KIT 이용한 text recognition
+        textRecognizer.process(inputImage)//이미지로부터 글자 인식
+            .addOnSuccessListener { text -> displayTextFromImage(text) }//유통기한 띄워주는 함수로 이동
             .addOnFailureListener { e ->
                 Toast.makeText(this@MainActivity, "Error" + e.message, Toast.LENGTH_SHORT).show()
                 Log.d("Error: ", e.message!!)
             }
     }
-    //인식한 유통기한 띄우기
+    //글자수, 유통기한 형식 확인 후 유통기한 띄우기
     fun displayTextFromImage(text: Text) {
         val blockList = text.textBlocks
         if (blockList.size == 0) {//글자를 인식하지 못한 경우
@@ -154,47 +151,19 @@ class MainActivity : AppCompatActivity(),OnInitListener {
             for (block in text.textBlocks) {
                 expirationDate=block.text
                 val dateIndex:String=expirationDate!!.substring(0 until 1)
-
-                if(dateIndex=="2"){//인식한 글자가 유통기한 형식에 맞는 경우
-                    cnt=informationList.size
-                    val info=InformationData(cnt,barcode,expirationDate)
-                    informationList.add(info)
-                    //insert DB
-                    mDbHelper2?.insert(cnt,barcode,expirationDate)
-                    Toast.makeText(this,expirationDate,Toast.LENGTH_SHORT).show();
-                    speakExpirationDate()
+                if(dateIndex=="2"){//인식한 글자가 유통기한 형식에 맞는 경우(유통기한 맨 앞글자가 2인지 검사)
+                    cnt= informationList!!.size+1//식품 목록 순번
+                    val info=InformationData(cnt,barcode,expirationDate)//순번, 식품명, 유통기한 지정해 InformationData 식품 객체 생성
+                    informationList!!.add(info)//식품 목록 리스트에 식품 객체 추가
+                    mDbHelper2?.insert(cnt,barcode,expirationDate)//insert DB
+                    Toast.makeText(this,expirationDate,Toast.LENGTH_SHORT).show();//유통기한 토스트 메시지로 띄우기
+                    speakExpirationDate()//유통기한 음성 안내 함수로 이동
                 }
                 else{//인식한 글자가 유통기한 형식에 맞지 않는 경우
                     expirationDate = null
                     Toast.makeText(this,"유통기한을 인식하지 못했습니다. 다시 찍어주세요.",Toast.LENGTH_SHORT).show();
-                    speakExpirationDate()
+                    speakExpirationDate()//유통기한 음성 안내 함수로 이동(이 경우 인식하지 못했다고 안내)
                 }
-            }
-        }
-    }
-
-    //바코드, 유통기한 처리 코드(if문:유통기한 사진인 경우, else문:바코드인 경우)
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode== REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
-            val extras = data!!.extras
-            imageBitmap = extras!!["data"] as Bitmap?
-            detectTextFromImage()
-        }
-        else{
-            val result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-            if(result!=null){
-                barcode=result.contents+".0"
-                //DB에 바코드 값 있는지 검색
-                for (i in barList?.indices!!) {
-                    if (barcode == barList!!.get(i).COL_BARCODE) {
-                        barcode=barList!!.get(i).COL_BARNAME
-                    }
-                }
-                Toast.makeText(this,barcode,Toast.LENGTH_LONG).show()
-                speakBarcode()
-            } else{
-                super.onActivityResult(requestCode, resultCode, data)
             }
         }
     }
@@ -218,7 +187,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         if(text==null) tts!!.speak("유통기한을 인식하지 못했습니다. 다시 찍어주세요.", TextToSpeech.QUEUE_FLUSH, null, "id4")
         else tts!!.speak("이 식품의 유통기한은"+expirationDate+"입니다. 메인으로 돌아가시려면 오른쪽 하단에 있는 버튼을, 바코드를 인식하여 상품명을 다시 안내받으시려면 왼쪽 하단에 있는 뒤로가기 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH, null, "id3")
     }
-    //음성 초기화, 소멸 코드
+    //음성 소멸 코드
     override fun onDestroy() {
         if (tts != null) {
             tts!!.stop()
@@ -226,13 +195,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         }
         super.onDestroy()
     }
+    //음성 초기화 코드
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             val result = tts!!.setLanguage(Locale.KOREA)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "This Language is not supported")
             } else {
-                //btn_speak.setEnabled(true);
                 speakBarcode()
             }
         } else {
@@ -242,5 +211,16 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
     }
-
+}
+fun FragmentManager.setupForAccessibility() {
+    addOnBackStackChangedListener {
+        val lastFragmentWithView = fragments.last { it.view != null }
+        for (fragment in fragments) {
+            if (fragment == lastFragmentWithView) {
+                fragment.view?.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
+            } else {
+                fragment.view?.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
+            }
+        }
+    }
 }
