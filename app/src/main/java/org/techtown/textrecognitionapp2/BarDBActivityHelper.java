@@ -19,7 +19,7 @@ import static android.content.ContentValues.TAG;
 public class BarDBActivityHelper extends SQLiteOpenHelper {  //데이터베이스 생성 및 관리
 
     private static String DB_PATH = "";
-    private static String DB_NAME ="reviseBarcodeData.db";  //공공DB
+    private static String DB_NAME ="barcode.db";  //공공DB
 
     private SQLiteDatabase mDataBase;
     private Context mContext;
