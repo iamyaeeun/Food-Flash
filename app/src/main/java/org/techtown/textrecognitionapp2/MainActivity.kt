@@ -212,6 +212,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         const val REQUEST_IMAGE_CAPTURE = 1
     }
 }
+
 fun FragmentManager.setupForAccessibility() {
     addOnBackStackChangedListener {
         val lastFragmentWithView = fragments.last { it.view != null }
