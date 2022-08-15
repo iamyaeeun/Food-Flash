@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
+    <!-- fragment를 보여줄 FrameLayout 설정-->
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
@@ -18,10 +19,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView" >
 
     </FrameLayout>
 
+    <!-- 앱 로고 ImageView 설정 -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"

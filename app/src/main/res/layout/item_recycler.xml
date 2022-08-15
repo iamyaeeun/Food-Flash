@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- android:focusable="true"
+     android:focusableInTouchMode="true"
+     => 사용자가 보이스 오버를 사용하므로 item을 클릭했을 시 text를 한 줄 단위로 읽을 수 있게 하기 위해
+     focusable 속성과 FocusableInTouchMode 속성을 true로 설정 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,10 +13,9 @@
     android:orientation="horizontal"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:clickable="true"
-    >
+    android:clickable="true" >
 
-
+    <!-- 레이아웃 안에 데이터를 담을 textView 설정 -->
     <TextView
         android:id="@+id/textNo"
         android:layout_width="wrap_content"
@@ -40,6 +44,7 @@
         android:text="2022-08-12"
         android:textSize="20dp" />
 
+    <!-- item 삭제 버튼 설정 -->
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="25dp"
@@ -49,6 +54,5 @@
         android:contentDescription="해당 음식의 목록을 삭제합니다"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/trashcan_icon" />
-
 
 </LinearLayout>

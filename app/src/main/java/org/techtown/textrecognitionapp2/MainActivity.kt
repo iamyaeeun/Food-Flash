@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         val title = barcode
         val date = expirationDate
         var allInfo = InformationData(cnt,title,date)
-        data.add(allInfo)//if(title!=null&&date!=null) 추가하기
+        data.add(allInfo) //if(title!=null&&date!=null) 추가하기
         return data
     }
 
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         informationList = mDbHelper2?.tableData as ArrayList<InformationData>
 
         /*
-        val transaction = supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction() //
         transaction.replace(R.id.frameLayout, InformationFragment())
         transaction.commit()
         intent.putExtra("informationData", informationList)

@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:clickable="true"
-    tools:context=".BarcodeFragment">
+    tools:context=".BarcodeFragment" >
+
+    <!-- android:contentDescription = "string"
+    => 보이스오버 구현을 위한 설정. 보이스 오버 기능을 실행시킨 채로 버튼을 누르면 설정된 string 값을 읽어준다 -->
 
     <android.widget.Button
         android:id="@+id/btnBarcode"
@@ -18,7 +21,7 @@
         android:layout_marginBottom="133dp"
         android:background="@drawable/solid_button"
         android:backgroundTint="#9197BD"
-        android:contentDescription="카메라를 사용해 포장지의 바코드를 촬영하고 음식의 이름을 음성 안내해주는 버튼입니다  누르면 카메라가 실행됩니다"
+        android:contentDescription="카메라를 사용해 포장지의 바코드를 촬영하고 음식의 이름을 음성 안내해주는 버튼입니다 누르면 카메라가 실행됩니다"
         android:fontFamily="@font/nanumsquareround_b"
         android:lineSpacingExtra="12sp"
         android:onClick="startBarcodeReader"
@@ -26,7 +29,7 @@
         android:textColor="@color/background_color"
         android:textSize="34dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintBottom_toTopOf="@+id/btnBarcodeToExpiration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +37,7 @@
         app:layout_constraintVertical_chainStyle="spread" />
 
     <ImageButton
-        android:id="@+id/btnNext"
+        android:id="@+id/btnBarcodeToExpiration"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="106dp"
@@ -46,11 +49,11 @@
         android:scaleType="centerCrop"
         android:src="@drawable/arrow_go"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnBackToMain"
+        app:layout_constraintStart_toEndOf="@+id/btnBarcodeToMain"
         app:layout_constraintTop_toBottomOf="@+id/btnBarcode" />
 
     <ImageButton
-        android:id="@+id/btnBackToMain"
+        android:id="@+id/btnBarcodeToMain"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="60dp"
@@ -62,7 +65,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/home_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnNext"
+        app:layout_constraintEnd_toStartOf="@+id/btnBarcodeToExpiration"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBarcode"

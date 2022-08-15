@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:clickable="true"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
+    <!-- 순번, 음식 이름, 유통기한을 나타내는 TextView가 들어갈 LinearLayout 설정 -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread">
+        app:layout_constraintVertical_chainStyle="spread" >
 
         <TextView
             android:id="@+id/textViewNo"
@@ -54,9 +55,9 @@
 
     </LinearLayout>
 
-
+    <!-- mainFragment로 돌아가는 버튼 -->
     <ImageButton
-        android:id="@+id/btnInfoToMain"
+        android:id="@+id/btnInfomationToMain"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="165dp"
@@ -73,6 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
+    <!-- 식품 정보를 확인할 수 있는 RecyclerView 설정 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
@@ -81,18 +83,14 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="20dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btnInfoToMain"
+        app:layout_constraintBottom_toTopOf="@+id/btnInfomationToMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:listitem="@layout/item_recycler"
-
-
-        >
+        tools:listitem="@layout/item_recycler">
 
     </androidx.recyclerview.widget.RecyclerView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

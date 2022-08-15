@@ -6,10 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:clickable="true"
-    tools:context=".MainFragment">
+    tools:context=".MainFragment" >
+
+    <!-- android:contentDescription = "string"
+    => 보이스오버 구현을 위한 설정. 보이스 오버 기능을 실행시킨 채로 버튼을 누르면 설정된 string 값을 읽어준다 -->
 
     <android.widget.Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnStartBarcode"
         android:layout_width="330dp"
         android:layout_height="200dp"
         android:layout_marginStart="40dp"
@@ -25,7 +28,7 @@
         android:textColor="#414C87"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnStart2"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartInformation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +36,7 @@
         app:layout_constraintVertical_chainStyle="spread" />
 
     <android.widget.Button
-        android:id="@+id/btnStart2"
+        android:id="@+id/btnStartInformation"
         android:layout_width="330dp"
         android:layout_height="200dp"
         android:layout_marginStart="40dp"
@@ -53,6 +56,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+        app:layout_constraintTop_toBottomOf="@+id/btnStartBarcode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

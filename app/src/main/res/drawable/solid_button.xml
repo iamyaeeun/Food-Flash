@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 버튼의 끝을 둥글게 하기 위해 drawable resource file을 만들어줌 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid
         android:color="#BBCAFF"/>
 
+    <!-- 모서리 둥근 크기 조절-->
     <corners
         android:radius="50dp"/>
 
