@@ -20,14 +20,14 @@ import org.techtown.textrecognitionapp2.databinding.ActivityMainBinding
 import java.util.*
 
 class MainActivity : AppCompatActivity(),OnInitListener {
-    var barcode: String? = null
-    var tts: TextToSpeech? = null
-    var expirationDate: String? = null
-    var imageBitmap: Bitmap? = null
-    var barList:List<BarDBActivity>?=null
-    var informationList: ArrayList<InformationData>? = null
-    var cnt:Int=0
-    var mDbHelper2:UserAdapter?=null
+    var barcode: String? = null//바코드
+    var tts: TextToSpeech? = null//음성 안내
+    var expirationDate: String? = null//유통기한
+    var imageBitmap: Bitmap? = null//유통기한 이미지 받을 변수
+    var barList:List<BarDBActivity>?=null//공공DB 정보 담을 리스트(데이터 타입:BarDBActivity 식품 객체, 객체 멤버 변수: 바코드, 식품명)
+    var informationList: ArrayList<InformationData>? = null//사용자DB 정보 담을 리스트(데이터 타입:InformationData 식품 객체, 객체 멤버 변수: 순번, 식품명, 유통기한)
+    var cnt:Int=0//식품 순번
+    var mDbHelper2:UserAdapter?=null//UserAdapter:사용자DB 관련 클래스
 
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -38,13 +38,13 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         tts = TextToSpeech(this, this)
 
         //공공데이터 DB 불러오기
-        var mDbHelper = BarAdapter(applicationContext)
+        var mDbHelper = BarAdapter(applicationContext)//BarAdapter:공공DB 관련 클래스
         mDbHelper.createDatabase()
         mDbHelper.open()
         barList = mDbHelper.tableData as List<BarDBActivity>//공공DB 정보 리스트로 받아오기
 
         //사용자 DB 불러오기
-        mDbHelper2=UserAdapter(applicationContext)
+        mDbHelper2=UserAdapter(applicationContext)//UserAdapter:사용자DB 관련 클래스
         mDbHelper2?.createDatabase()
         mDbHelper2?.open()
         informationList = mDbHelper2?.tableData as ArrayList<InformationData>//사용자DB 정보 리스트로 받아오기
@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         tts!!.setPitch(0.6.toFloat())
         tts!!.setSpeechRate(1.2.toFloat())
         if(text==null){
-            tts!!.speak("바코드를 인식하여 식품명을 음성 안내 받으시거나 식품 사진을 촬영하신 후 유통기한을 음성 안내 받으시려면 화면 위에 있는 식품 유통기한 확인 버튼을, 저장된 식품을 보시려면 화면 아래에 있는 식품 정보 확인 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH,null,"id2")
+            tts!!.speak("바코드를 인식해 식품명을 음성 안내 받으시거나 식품 사진을 촬영하신 후 유통기한을 음성 안내 받으시려면 화면 위에 있는 식품 유통기한 확인 버튼을, 저장된 식품을 보시려면 화면 아래에 있는 식품 정보 확인 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH,null,"id2")
         }
         else{
             tts!!.speak("이 식품은 "+text+"입니다. 유통기한을 촬영하시려면 오른쪽 하단에 있는 next 버튼을 누른뒤 화면 상단에 있는 유통기한 촬영 버튼을, 메인 화면으로 돌아가시려면 왼쪽 하단에 있는 처음으로 버튼을 눌러주세요", TextToSpeech.QUEUE_FLUSH, null, "id1")
@@ -212,6 +212,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         const val REQUEST_IMAGE_CAPTURE = 1
     }
 }
+
 fun FragmentManager.setupForAccessibility() {
     addOnBackStackChangedListener {
         val lastFragmentWithView = fragments.last { it.view != null }
