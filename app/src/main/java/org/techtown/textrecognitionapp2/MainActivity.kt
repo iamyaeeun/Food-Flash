@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         tts!!.setPitch(0.6.toFloat())
         tts!!.setSpeechRate(1.2.toFloat())
         if(text==null){
-            tts!!.speak("바코드를 인식하여 식품명을 음성 안내 받으시거나 식품 사진을 촬영하신 후 유통기한을 음성 안내 받으시려면 화면 위에 있는 식품 유통기한 확인 버튼을, 저장된 식품을 보시려면 화면 아래에 있는 식품 정보 확인 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH,null,"id2")
+            tts!!.speak("바코드를 인식해 식품명을 음성 안내 받으시거나 식품 사진을 촬영하신 후 유통기한을 음성 안내 받으시려면 화면 위에 있는 식품 유통기한 확인 버튼을, 저장된 식품을 보시려면 화면 아래에 있는 식품 정보 확인 버튼을 눌러주세요.", TextToSpeech.QUEUE_FLUSH,null,"id2")
         }
         else{
             tts!!.speak("이 식품은 "+text+"입니다. 유통기한을 촬영하시려면 오른쪽 하단에 있는 next 버튼을 누른뒤 화면 상단에 있는 유통기한 촬영 버튼을, 메인 화면으로 돌아가시려면 왼쪽 하단에 있는 처음으로 버튼을 눌러주세요", TextToSpeech.QUEUE_FLUSH, null, "id1")
