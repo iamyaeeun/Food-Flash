@@ -1,4 +1,4 @@
-//데이터베이스 정보
+//공공DB 정보
 
 package org.techtown.textrecognitionapp2;
 
