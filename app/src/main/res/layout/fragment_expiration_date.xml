@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:clickable="true"
-    tools:context=".ExpirationDateFragment">
+    tools:context=".ExpirationDateFragment" >
+
+    <!-- android:contentDescription = "string"
+    =>  보이스오버 구현을 위한 설정. 보이스 오버 기능을 실행시킨 채로 버튼을 누르면 설정된 string 값을 읽어준다 -->
 
     <android.widget.Button
         android:id="@+id/btnExpirationDate"
@@ -27,20 +30,16 @@
         android:textColor="@color/background_color"
         android:textSize="34dp"
         android:textStyle="bold"
-
-
-        app:layout_constraintBottom_toTopOf="@+id/btn_Back"
+        app:layout_constraintBottom_toTopOf="@+id/btnExpirationToBarcode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread"
-
-        />
+        app:layout_constraintVertical_chainStyle="spread" />
 
 
     <ImageButton
-        android:id="@+id/btn_Back"
+        android:id="@+id/btnExpirationToBarcode"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="60dp"
@@ -50,13 +49,13 @@
         android:padding="0sp"
         android:scaleType="centerCrop"
         android:src="@drawable/arrow_back"
-        app:layout_constraintEnd_toStartOf="@+id/btnBackMain"
+        app:layout_constraintEnd_toStartOf="@+id/btnExpirationToMain"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnExpirationDate" />
 
     <ImageButton
-        android:id="@+id/btnBackMain"
+        android:id="@+id/btnExpirationToMain"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="121dp"
@@ -68,7 +67,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/home_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_Back"
+        app:layout_constraintStart_toEndOf="@+id/btnExpirationToBarcode"
         app:layout_constraintTop_toBottomOf="@+id/btnExpirationDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

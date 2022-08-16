@@ -1,51 +1,39 @@
 package org.techtown.textrecognitionapp2
 
-import android.app.Fragment
 import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.zxing.integration.android.IntentIntegrator
 import org.techtown.textrecognitionapp2.databinding.FragmentBarcodeBinding
-import org.techtown.textrecognitionapp2.MainActivity
-import java.util.*
 
 class BarcodeFragment : androidx.fragment.app.Fragment(){
     var mainActivity: MainActivity? = null
     var text:TextView?=null
 
-    override fun onAttach(context: Context) {
+    override fun onAttach(context: Context) { // 넘어온 Context를 인자로 받음
         super.onAttach(context)
-
-        if(context is MainActivity) mainActivity = context
+        if(context is MainActivity) mainActivity = context // Context 타입이 MainActivity인 것을 확인한 후 프로퍼티에 저장
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setupForAccessibility()
+        childFragmentManager.setupForAccessibility() // 프래그먼트 접근성이 이전 프래그먼트 view에 유지되어 보이스 오버 사용에 문제가 생기는 현상을 해결하기 위해 코드 추가
+        // 새로 정의한 FragmentManager의 setupForAccessibility() 호출
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_barcode, container, false)
 
+        // 버튼 클릭 시 main에 있는 fragment 이동 함수가 실행되도록 함
         val binding = FragmentBarcodeBinding.inflate(inflater, container, false)
-        binding.btnNext.setOnClickListener { mainActivity?.goExpirationDate() }
-        binding.btnBackToMain.setOnClickListener { mainActivity?.goMain() }
-        //추가
-
+        binding.btnBarcodeToExpiration.setOnClickListener { mainActivity?.goExpirationDate() }
+        binding.btnBarcodeToMain.setOnClickListener { mainActivity?.goMain() }
         binding.btnBarcode.setOnClickListener { mainActivity?.startBarcodeReader() }
+
         return binding.root
     }
 

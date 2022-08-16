@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity(),OnInitListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportFragmentManager.setupForAccessibility()
+        supportFragmentManager.setupForAccessibility() // 프래그먼트 접근성이 이전 프래그먼트 view에 유지되어 보이스 오버 사용에 문제가 생기는 현상을 해결하기 위해 코드 추가
+        // 새로 정의한 FragmentManager의 setupForAccessibility() 호출
+
         setContentView(binding.root)
         tts = TextToSpeech(this, this)
 
@@ -49,10 +51,10 @@ class MainActivity : AppCompatActivity(),OnInitListener {
         mDbHelper2?.open()
         informationList = mDbHelper2?.tableData as ArrayList<InformationData>//사용자DB 정보 리스트로 받아오기
 
-        setMainFragment()
+        setMainFragment() // main Fragment로 이동하는 함수 설정
     }
 
-    //메인 프래그먼트 설정
+    //메인 프래그먼트로 이동
     fun setMainFragment() {
         val mainFragment: MainFragment = MainFragment()
         val transaction = supportFragmentManager.beginTransaction()
@@ -213,6 +215,8 @@ class MainActivity : AppCompatActivity(),OnInitListener {
     }
 }
 
+// 프래그먼트 접근성이 이전 프래그먼트 view에 유지되어 보이스 오버 사용에 문제가 생기는 현상을 해결하기 위해 코드 추가
+// 백스택에 변경사항이 생길 때마다 최상위 프래그먼트 뷰를 찾아 접근성을 important로 설정하고 나머지 뷰들은 모두 not important으로 설정
 fun FragmentManager.setupForAccessibility() {
     addOnBackStackChangedListener {
         val lastFragmentWithView = fragments.last { it.view != null }
