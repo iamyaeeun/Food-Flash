@@ -7,18 +7,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:background="@color/background_color"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:clickable="true" >
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <!-- 레이아웃 안에 데이터를 담을 textView 설정  -->
     <TextView
         android:id="@+id/textNo"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:fontFamily="@font/nanumsquareround_b"
@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:fontFamily="@font/nanumsquareround_b"
@@ -37,17 +37,17 @@
 
     <TextView
         android:id="@+id/textDate"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:fontFamily="@font/nanumsquareround_b"
-        android:text="2022-08-12"
+        android:text="2021-08-12"
         android:textSize="20dp" />
 
     <!-- item 삭제 버튼 설정 -->
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="25dp"
+        android:layout_width="30dp"
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
