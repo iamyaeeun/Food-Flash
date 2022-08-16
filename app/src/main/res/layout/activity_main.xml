@@ -7,7 +7,7 @@
     android:background="@color/background_color"
     tools:context=".MainActivity" >
 
-    <!-- fragment를 보여줄 FrameLayout 설정-->
+    <!-- fragment를 보여줄 FrameLayout 설정 -->
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"

@@ -15,7 +15,7 @@
     android:focusableInTouchMode="true"
     android:clickable="true" >
 
-    <!-- 레이아웃 안에 데이터를 담을 textView 설정 -->
+    <!-- 레이아웃 안에 데이터를 담을 textView 설정  -->
     <TextView
         android:id="@+id/textNo"
         android:layout_width="wrap_content"

@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
-    <!-- 식품 정보를 확인할 수 있는 RecyclerView 설정 -->
+    <!-- 식품 정보를 확인할 수 있는 RecyclerView 설정  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"

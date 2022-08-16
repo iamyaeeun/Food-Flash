@@ -9,7 +9,7 @@
     tools:context=".BarcodeFragment" >
 
     <!-- android:contentDescription = "string"
-    => 보이스오버 구현을 위한 설정. 보이스 오버 기능을 실행시킨 채로 버튼을 누르면 설정된 string 값을 읽어준다 -->
+    =>  보이스오버 구현을 위한 설정. 보이스 오버 기능을 실행시킨 채로 버튼을 누르면 설정된 string 값을 읽어준다 -->
 
     <android.widget.Button
         android:id="@+id/btnBarcode"
