@@ -1,6 +1,6 @@
 package org.techtown.textrecognitionapp2
 
-// 순번, 식품명, 유통기한 값을 한 번에 담을 수 있는 data class 선언
+//  순번, 식품명, 유통기한 값을 한 번에 담을 수 있는 data class 선언
 
 data class InformationData(
     private var no: Int? = null, //no

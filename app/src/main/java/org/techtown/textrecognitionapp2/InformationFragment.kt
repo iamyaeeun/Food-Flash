@@ -19,14 +19,16 @@ class InformationFragment : Fragment() {
     lateinit var binding: FragmentInformationBinding
     var mDbHelper:UserAdapter?=null
 
-    override fun onAttach(context: Context) {
+    override fun onAttach(context: Context) { // 넘어온 Context를 인자로 받음
         super.onAttach(context)
-        if(context is MainActivity) mainActivity = context
+
+        if(context is MainActivity) mainActivity = context // Context 타입이 MainActivity인 것을 확인한 후 프로퍼티에 저장
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         childFragmentManager.setupForAccessibility() // 프래그먼트 접근성이 이전 프래그먼트 view에 유지되어 보이스 오버 사용에 문제가 생기는 현상을 해결하기 위해 코드 추가
+        // 새로 정의한 FragmentManager의 setupForAccessibility() 호출
     }
 
     override fun onCreateView(
@@ -38,13 +40,12 @@ class InformationFragment : Fragment() {
         binding = FragmentInformationBinding.inflate(inflater, container, false)
         binding.btnInfomationToMain.setOnClickListener { mainActivity?.goMain() }
 
-        return binding.root /////////////주석
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mDbHelper=UserAdapter(mainActivity)
-        //mDbHelper?.createDatabase()
         mDbHelper?.open()
 
         // MainActivity에서 intent로 넘긴 데이터를 받아옴
@@ -59,9 +60,9 @@ class InformationFragment : Fragment() {
         binding.recyclerView.adapter = customAdapter
     }
 
-    fun deleteTask(info:InformationData){ ///////////주석
+    fun deleteTask(info:InformationData){ //item을 삭제하는 함수
         list?.remove(info)
-        info.getNo()?.let { mDbHelper?.delete(it) } //
+        info.getNo()?.let { mDbHelper?.delete(it) } //No 변수값을 받아 item을 삭제
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
