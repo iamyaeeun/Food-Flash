@@ -1,7 +1,7 @@
 # Food Flash
 # 시각장애인을 위한 유통기한 관리 앱
 
-ML KIT text recognition: 식품 사진에서 유통기한 글자 인식
+ML KIT text recognition: 식품 사진에서 유통기한 텍스트 인식
 
 SQLite 데이터베이스1: 바코드, 식품명 컬럼으로 구성되어 바코드 인식 시 식품명으로 변환하는데 이용
 
